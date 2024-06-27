@@ -14,6 +14,8 @@ concurrency:
 
 jobs:
   excludes:
+    name: 'Excludes'
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     outputs:
       deb: ${{ steps.deb.outputs.excludes }}
@@ -47,6 +49,7 @@ jobs:
 
   deb:
     name: 'DEB'
+    if: github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       id-token: write
       contents: read
@@ -87,7 +90,7 @@ jobs:
       PROXY_URL: ${{ secrets.PROXY_URL }}
       USERNAME: ${{ secrets.USERNAME }}
       TELEPORT_TOKEN: ${{ secrets.TELEPORT_TOKEN }}
-      REPO_USERNAME: 'signalwire'
+      REPO_USERNAME: 'SWUSERNAME'
       REPO_PASSWORD: ${{ secrets.REPOTOKEN }}
 
   meta:
